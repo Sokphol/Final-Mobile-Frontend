@@ -1,0 +1,138 @@
+<!doctype html>
+<html>
+  <head>
+    <!--
+    If you are serving your web app in a path other than the root, change the
+    href value below to reflect the base path you are serving from.
+
+    The path provided below has to start and end with a slash "/" in order for
+    it to work correctly.
+
+    For more details:
+    * https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base
+
+    This is a placeholder for base href that will be replaced by the value of
+    the `--base-href` argument provided to `flutter build`.
+  -->
+    <base href="$FLUTTER_BASE_HREF" />
+
+    <meta charset="UTF-8" />
+    <meta content="IE=Edge" http-equiv="X-UA-Compatible" />
+    <meta
+      name="description"
+      content="SONICFLOW precision audio and flagship headphones."
+    />
+    <meta name="theme-color" content="#0D0E12" />
+
+    <!-- iOS meta tags & icons -->
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="apple-mobile-web-app-title" content="SONICFLOW" />
+    <link rel="apple-touch-icon" href="icons/Icon-192.png" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="favicon.png" />
+
+    <title>SONICFLOW | Precision Audio &amp; Flagship Headphones</title>
+    <link rel="manifest" href="manifest.json" />
+    <style>
+      html,
+      body {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        overflow: hidden;
+        background-color: #0d0e12;
+      }
+
+      #sonicflow-preloader {
+        position: fixed;
+        inset: 0;
+        z-index: 9999;
+        display: grid;
+        place-items: center;
+        background: #0d0e12;
+        opacity: 1;
+        transition:
+          opacity 350ms ease,
+          visibility 350ms ease;
+      }
+
+      #sonicflow-preloader.is-hidden {
+        visibility: hidden;
+        opacity: 0;
+      }
+
+      .sonicflow-equalizer {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        height: 48px;
+      }
+
+      .sonicflow-equalizer span {
+        width: 5px;
+        border-radius: 3px;
+        background: #ff6b00;
+        animation: sonicflow-pulse 900ms ease-in-out infinite alternate;
+      }
+
+      .sonicflow-equalizer span:nth-child(1),
+      .sonicflow-equalizer span:nth-child(5) {
+        height: 14px;
+      }
+      .sonicflow-equalizer span:nth-child(2),
+      .sonicflow-equalizer span:nth-child(4) {
+        height: 30px;
+        animation-delay: 160ms;
+      }
+      .sonicflow-equalizer span:nth-child(3) {
+        height: 44px;
+        animation-delay: 320ms;
+      }
+
+      @keyframes sonicflow-pulse {
+        from {
+          transform: scaleY(0.55);
+        }
+        to {
+          transform: scaleY(1);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="sonicflow-preloader" role="status" aria-label="Loading SONICFLOW">
+      <div class="sonicflow-equalizer" aria-hidden="true">
+        <span></span><span></span><span></span><span></span><span></span>
+      </div>
+    </div>
+    <script>
+      const sonicflowPreloader = document.getElementById("sonicflow-preloader");
+      window.addEventListener(
+        "flutter-first-frame",
+        () => {
+          sonicflowPreloader.classList.add("is-hidden");
+          sonicflowPreloader.addEventListener(
+            "transitionend",
+            () => {
+              sonicflowPreloader.remove();
+            },
+            { once: true },
+          );
+          window.setTimeout(() => sonicflowPreloader.remove(), 500);
+        },
+        { once: true },
+      );
+    </script>
+    <!--
+    You can customize the "flutter_bootstrap.js" script.
+    This is useful to provide a custom configuration to the Flutter loader
+    or to give the user feedback during the initialization process.
+
+    For more details:
+    * https://docs.flutter.dev/platform-integration/web/initialization
+  -->
+    <script src="flutter_bootstrap.js" async></script>
+  </body>
+</html>
